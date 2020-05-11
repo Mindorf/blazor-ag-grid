@@ -68,8 +68,18 @@ window.blazor_ag_grid = {
         console.log("Got GridEvents: " + JSON.stringify(gridEvents));
         if (gridEvents.handlers.SelectionChanged) {
             console.log("Wrapping SelectionChanged handler");
+            console.log(gridOptions);
             gridOptions.onSelectionChanged = function () {
                 blazor_ag_grid.gridOptions_onSelectionChanged(gridOptions, gridEvents);
+            }
+        }
+        if(gridEvents.handlers.CellEditingStopped)
+        {
+            console.log("Wrapping CellEditingStopped handler");
+            gridOptions.onCellEditingStopped = function (x) {
+                console.log("cell edit: ");
+                console.log(x);
+                blazor_ag_grid.gridOptions_onCellEditingStopped(gridOptions, gridEvents);
             }
         }
     }
@@ -118,6 +128,14 @@ window.blazor_ag_grid = {
         var mapped = selectedNodes.map(this.util_mapRowNode);
         console.log("js-selectedNodes: " + JSON.stringify(mapped));
         gridEvents.handlers.SelectionChanged.jsRef.invokeMethodAsync('Invoke', mapped);
+    }
+    , gridOptions_onCellEditingStopped: function (gridOptions, gridEvents) {
+        console.log("js-onCellEditingStopped");
+        //var selectedNodes = gridOptions.api.getSelectedNodes();
+        //var json = blazor_ag_grid.util_stringify(selectedNodes);
+        //var mapped = selectedNodes.map(this.util_mapRowNode);
+        //console.log("js-selectedNodes: " + JSON.stringify(mapped));
+        //gridEvents.handlers.SelectionChanged.jsRef.invokeMethodAsync('Invoke', mapped);
     }
     , datasource_successCallback: function (callbackId, rowsThisBlock, lastRow) {
         var getRowsParams = blazor_ag_grid.callbackMap[callbackId];
