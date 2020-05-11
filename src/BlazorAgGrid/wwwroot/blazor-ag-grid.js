@@ -77,9 +77,7 @@ window.blazor_ag_grid = {
         {
             console.log("Wrapping CellEditingStopped handler");
             gridOptions.onCellEditingStopped = function (x) {
-                console.log("cell edit: ");
-                console.log(x);
-                blazor_ag_grid.gridOptions_onCellEditingStopped(gridOptions, gridEvents);
+                blazor_ag_grid.gridOptions_onCellEditingStopped(gridOptions, gridEvents, x.data);
             }
         }
     }
@@ -129,8 +127,13 @@ window.blazor_ag_grid = {
         console.log("js-selectedNodes: " + JSON.stringify(mapped));
         gridEvents.handlers.SelectionChanged.jsRef.invokeMethodAsync('Invoke', mapped);
     }
-    , gridOptions_onCellEditingStopped: function (gridOptions, gridEvents) {
+    , gridOptions_onCellEditingStopped: function (gridOptions, gridEvents, data) {
         console.log("js-onCellEditingStopped");
+        console.log(data);
+        var json = blazor_ag_grid.util_stringify(data);
+        console.log(json);
+        gridEvents.handlers.CellEditingStopped.jsRef.invokeMethodAsync('Invoke',data);
+
         //var selectedNodes = gridOptions.api.getSelectedNodes();
         //var json = blazor_ag_grid.util_stringify(selectedNodes);
         //var mapped = selectedNodes.map(this.util_mapRowNode);

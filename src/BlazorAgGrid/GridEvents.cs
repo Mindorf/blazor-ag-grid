@@ -9,6 +9,9 @@ namespace BlazorAgGrid
     public partial class GridEvents
     {
         public Action<RowNode[]> SelectionChanged { set => Set(value); }
-        public Action<object> CellEditingStopped {set => Set(value); }
+        public void SetOnCellEditingStopped<T>(Action<T> CellEditingStopped)
+        {
+            Set(CellEditingStopped,"CellEditingStopped");
+        }
     }
 }
