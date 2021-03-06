@@ -25,5 +25,9 @@ namespace BlazorAgGrid
         public bool IsFiltered { get; set; }
         [JsonPropertyName("editable")]
         public bool IsEditable { get; set; }
+        [JsonPropertyName("dotnetDatatype")]
+        public string DotnetDatatype {get; set;}
+        [JsonPropertyName("dotnetFilter")]
+        public string DotnetFilter {get; set;}
     }
 }

@@ -59,9 +59,14 @@ namespace BlazorAgGrid
             return _js.InvokeVoidAsync("blazor_ag_grid.gridOptions_setDatasource", _id, ds).AsTask();
         }
 
-        private Task CallApi(string name, params object[] args)
+        public Task CallApi(string name, params object[] args)
         {
             return _js.InvokeVoidAsync(CallGridApi, _id, name, args).AsTask();
+        }
+
+        public ValueTask<T> CallApiGetResult<T>(string name, params object[] args)
+        {
+            return _js.InvokeAsync<T>(CallGridApi, _id, name, args);
         }
 
         public class RefreshCellsParams

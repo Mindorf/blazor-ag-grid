@@ -200,7 +200,7 @@ window.blazor_ag_grid = {
         newN["id"] = n.id;
         newN["data"] = n.data;
         if (n.parent) {
-            newN["parent"] = mapNode(n.parent);
+            //newN["parent"] = this.util_mapRowNode(n.parent);
         }
         newN["level"] = n.level;
         newN["uiLevel"] = n.uiLevel;
